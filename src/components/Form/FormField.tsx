@@ -25,35 +25,31 @@ export const FormField: React.FC<FormFieldProps> = ({
     control,
   } = useFormContext();
 
+  const errorMessage = errors[name]?.message as string | undefined;
+
   const renderField = (fieldProps: any) => {
     if (type === "checkbox") {
       return (
         <div className="flex items-center justify-start pl-32 mb-4">
           <input
             type="checkbox"
+            checked={fieldProps.value}
+            onChange={(e) => fieldProps.onChange(e.target.checked)}
             {...fieldProps}
             className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
           />
-          <label className="ml-2 text-sm text-gray-700" htmlFor={label}>{label}</label>
+          <label className="ml-2 text-sm text-gray-700" htmlFor={name}>{label}</label>
         </div>
       );
     }
 
     return (
       <div className="flex items-start mb-4">
-        <label className="w-32 text-right font-medium text-sm pt-2 pr-4" htmlFor={label}>
+        <label className="w-32 text-right font-medium text-sm pt-2 pr-4" htmlFor={name}>
           {required && <span className="text-red-500">*</span>} {label}:
         </label>
         <div className="flex-1">
-          <Input {...fieldProps} type={type} error={errors[name]?.message as string} autoComplete={
-            type === "email"
-              ? "email"
-              : type === "password"
-                ? "current-password"
-                : type === "text" && name === "fullname"
-                  ? "name"
-                  : undefined
-          }/>
+          <Input {...fieldProps} type={type} error={errorMessage} />
         </div>
       </div>
     );

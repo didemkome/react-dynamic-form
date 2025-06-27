@@ -15,7 +15,9 @@ interface UserForm {
 
 export const CreateUser = () => {
   const navigate = useNavigate();
-  const [defaultValues, setDefaultValues] = useState<Partial<UserForm>>({});
+  const [defaultValues, setDefaultValues] = useState<Partial<UserForm>>({
+    remember:true,
+  });
 
   useEffect(() => {
     const savedData = localStorage.getItem("userData");
@@ -28,11 +30,7 @@ export const CreateUser = () => {
   }, []);
 
   const onSubmit = (data: UserForm) => {
-    if (data.remember) {
-      localStorage.setItem("userData", JSON.stringify(data));
-    } else {
-      localStorage.removeItem("userData");
-    }
+    localStorage.setItem("userData", JSON.stringify(data));
     navigate(routes.USER_DETAILS);
   };
 
@@ -80,6 +78,7 @@ export const CreateUser = () => {
             name="remember"
             label="Remember Me"
             type="checkbox"
+            controlled
           />
 
           <Button type="submit" className="w-max mt-4 ml-32">
