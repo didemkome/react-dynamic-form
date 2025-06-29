@@ -25,6 +25,44 @@
 
 ---
 
+## Design Philosophy
+
+This project is built to provide:
+
+- ✅ A **single source of truth** for rendering all form fields.
+- ✅ Smart switching between **controlled** and **uncontrolled** inputs.
+- ✅ Consistent **layout structure** across field types.
+- ✅ Easy **reusability** for future forms and components.
+- ✅ Clean **separation of UI and form logic**.
+
+
+---
+
+
+
+### Controlled vs Uncontrolled Fields
+
+React Hook Form offers better performance with **uncontrolled inputs**. However, some components like `<Select />`, `<Checkbox />`, and `<RadioGroup />` require **controlled** behavior for better UI control and value management.
+
+In this project:
+
+- **Text-based inputs** (`text`, `email`, `password`) use **uncontrolled** fields.
+- **Custom components** (`select`, `checkbox`, `radio`) are handled via `Controller`.
+
+```tsx
+// ✅ Controlled (when using custom components)
+<Controller
+  control={control}
+  name="gender"
+  render={({ field }) => <Select {...field} options={options} />}
+/>
+
+// ✅ Uncontrolled (for native input types)
+<input {...register("email")} />
+```
+
+---
+
 ## Setup & Running the Project
 
 ### Prerequisites
@@ -35,17 +73,8 @@
 ### Installation
 
 ```bash
-git clone https://github.com/yourusername/react-dynamic-form.git
+git clone https://github.com/didemkome/react-dynamic-form
 cd react-dynamic-form
 pnpm install
+pnpm dev
 ```
-
-## Controlled vs Uncontrolled Example
-
-```tsx
-// Controlled example (using state)
-const [value, setValue] = useState('');
-<Input value={value} onChange={(e) => setValue(e.target.value)} />
-
-// Uncontrolled (default with react-hook-form)
-<Input {...register("name")} />

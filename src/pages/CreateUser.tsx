@@ -15,16 +15,21 @@ interface UserForm {
 
 export const CreateUser = () => {
   const navigate = useNavigate();
-  const [defaultValues, setDefaultValues] = useState<Partial<UserForm>>({
-    remember:true,
-  });
+  const [defaultValues, setDefaultValues] = useState<UserForm | undefined>(undefined);
 
   useEffect(() => {
     const savedData = localStorage.getItem("userData");
     if (savedData) {
-      const parsed = JSON.parse(savedData);
-      if (parsed.remember) {
-        setDefaultValues(parsed);
+      const parsedUserData=JSON.parse(savedData);
+      if(parsedUserData.remember){
+        setDefaultValues(JSON.parse(savedData));
+      }else {
+        setDefaultValues({
+          fullname: "",
+          email: "",
+          password: "",
+          remember: false,
+        });
       }
     }
   }, []);
@@ -33,6 +38,8 @@ export const CreateUser = () => {
     localStorage.setItem("userData", JSON.stringify(data));
     navigate(routes.USER_DETAILS);
   };
+
+  if (!defaultValues) return null;
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
@@ -43,6 +50,7 @@ export const CreateUser = () => {
           <FormField
             name="fullname"
             label="Full Name"
+            type="text"
           />
 
           <FormField
@@ -78,7 +86,6 @@ export const CreateUser = () => {
             name="remember"
             label="Remember Me"
             type="checkbox"
-            controlled
           />
 
           <Button type="submit" className="w-max mt-4 ml-32">
