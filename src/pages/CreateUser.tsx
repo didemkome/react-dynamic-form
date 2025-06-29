@@ -19,19 +19,21 @@ export const CreateUser = () => {
 
   useEffect(() => {
     const savedData = localStorage.getItem("userData");
+
     if (savedData) {
-      const parsedUserData=JSON.parse(savedData);
-      if(parsedUserData.remember){
-        setDefaultValues(JSON.parse(savedData));
-      }else {
-        setDefaultValues({
-          fullname: "",
-          email: "",
-          password: "",
-          remember: false,
-        });
+      const parsed = JSON.parse(savedData);
+      if (parsed.remember) {
+        setDefaultValues(parsed);
+        return;
       }
     }
+
+    setDefaultValues({
+      fullname: "",
+      email: "",
+      password: "",
+      remember: true,
+    });
   }, []);
 
   const onSubmit = (data: UserForm) => {

@@ -1,4 +1,4 @@
-import {type ReactNode} from "react";
+import {type ReactNode, useEffect} from "react";
 import {
   useForm,
   FormProvider,
@@ -10,7 +10,7 @@ import {
 interface FormProps<TFormValues extends FieldValues> {
   onSubmit: SubmitHandler<TFormValues>;
   children: ReactNode;
-  defaultValues?: UseFormProps<TFormValues>["defaultValues"];
+  defaultValues?: UseFormProps<TFormValues>["defaultValues"] ;
 }
 
 export function Form<TFormValues extends FieldValues>({
@@ -23,6 +23,12 @@ export function Form<TFormValues extends FieldValues>({
     mode: "onSubmit",
     defaultValues,
   });
+
+  useEffect(() => {
+    if (defaultValues) {
+      methods.reset(defaultValues as TFormValues);
+    }
+  }, [defaultValues, methods]);
 
   return (
     <FormProvider {...methods}>
