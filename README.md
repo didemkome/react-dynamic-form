@@ -11,6 +11,9 @@
     │   ├── UI/
     │   │   ├── Input.tsx         # Custom input with error handling and password toggle
     │   │   └── Button.tsx        # Styled button component
+    │   │   ├── Select.tsx        # Custom select group component
+    │   │   └── Checkbox.tsx      # Custom checkbox group component
+    │   │   └── RadioGroup.tsx    # Custom radio group component
     ├── pages/
     │   ├── CreateUser.tsx        # User creation form page
     │   ├── UserDetails.tsx       # User details display page

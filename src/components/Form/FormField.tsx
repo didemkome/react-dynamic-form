@@ -63,19 +63,21 @@ export const FormField: React.FC<FormFieldProps> = ({
     if (type === "radio") {
       return (
         <div className="flex items-start mb-4">
-          <span className="w-32 text-right font-medium text-sm pt-2 pr-4">
-            {required && <span className="text-red-500">*</span>} {label}:
-          </span>
-          <div className="flex-1">
-            <RadioGroup
-              name={name}
-              options={options}
-              value={field.value}
-              onChange={field.onChange}
-              className={className}
-            />
-            {errorMessage && <p className="text-red-500 text-sm mt-1">{errorMessage}</p>}
-          </div>
+          <fieldset className="contents w-full">
+            <legend className="w-32 text-right font-medium text-sm pt-2 pr-4 flex-shrink-0">
+              {required && <span className="text-red-500">*</span>} {label}:
+            </legend>
+            <div className="flex-1">
+              <RadioGroup
+                name={name}
+                options={options}
+                value={field.value}
+                onChange={field.onChange}
+                className={className}
+              />
+              {errorMessage && <p className="text-red-500 text-sm mt-1">{errorMessage}</p>}
+            </div>
+          </fieldset>
         </div>
       );
     }

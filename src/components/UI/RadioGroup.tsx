@@ -25,7 +25,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({ name, options, value,cla
             value={option.value}
             checked={value === option.value}
             onChange={() => onChange(option.value)}
-            className="text-blue-600 focus:ring-blue-500"
+            className="cursor-pointer"
           />
           <span>{option.label}</span>
         </div>
